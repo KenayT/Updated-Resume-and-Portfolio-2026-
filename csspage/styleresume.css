@@ -1,0 +1,20 @@
+/* Specific styling for the Resume page image shadows */
+.resume-image-shadow {
+    /* Purple to Blue offset shadow to distinguish from the About page */
+    box-shadow: 
+        12px 12px 0px 0px rgba(168, 85, 247, 0.9), 
+        -12px -12px 0px 0px rgba(59, 130, 246, 0.9);
+}
+
+.dark .resume-image-shadow {
+    /* Muted version for dark mode */
+    box-shadow: 
+        12px 12px 0px 0px rgba(168, 85, 247, 0.3), 
+        -12px -12px 0px 0px rgba(59, 130, 246, 0.3);
+}
+
+/* JavaScript Reveal Utility */
+.resume-reveal.is-visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}

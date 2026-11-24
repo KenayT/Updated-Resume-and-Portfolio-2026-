@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ken's Portfolio | PROJECTS</title>
+    <script>
+        if (localStorage.getItem('color-theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+        } else {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: { primary: '#0f172a', secondary: '#f8fafc' }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="csspage/style.css">
+    <link rel="stylesheet" href="csspage/styleprojects.css">
+    <link rel="icon" type="image/jpeg" href="img/logo.jpg">
+</head>
+<body class="text-primary dark:text-secondary transition-colors duration-700 min-h-screen overflow-x-hidden selection:bg-blue-500 selection:text-white bg-transparent flex flex-col">
+    <div id="base-bg" class="fixed inset-0 z-[-4] bg-secondary dark:bg-primary transition-colors duration-700"></div>
+
+    <div class="fixed inset-0 z-[-3] pointer-events-none overflow-hidden">
+        <canvas id="warp-grid" class="absolute top-0 left-0 w-full h-full"></canvas>
+        <canvas id="lightshow" class="absolute top-0 left-0 w-full h-full opacity-60"></canvas>
+    </div>
+
+    <div id="cursor-dot" class="hidden md:block"></div>
+    <div id="cursor-outline" class="hidden md:block"></div>
+
+    <nav class="fixed w-full top-0 z-50 backdrop-blur-md bg-gray-200/80 dark:bg-slate-900/60 border-b border-gray-300 dark:border-gray-800/50 transition-colors duration-700">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0 cursor-pointer">
+                    <a href="index.html">
+                        <span class="text-2xl font-black tracking-tighter uppercase transition-colors duration-700 text-gray-900 dark:text-white">Ken's Portfolio<span class="text-blue-500">.</span></span>
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                        <a href="about.html" class="text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
+                        <a href="projects.html" class="text-blue-600 dark:text-blue-400 px-3 py-2 rounded-md text-sm font-bold transition-colors">Projects</a>
+                        <a href="resume.html" class="text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Resume</a>
+                        <a href="socials.html" class="text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Socials</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2 md:space-x-4">
+                    <button id="water-toggle" class="text-blue-500 p-2 rounded-full hover:bg-gray-300 dark:hover:bg-gray-800/50 transition-colors focus:outline-none"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"></path><path stroke-linecap="round" stroke-linejoin="round" d="M3 15c2 0 3-3 5-3s3 3 5 3 3-3 5-3 3 3 5 3M3 19c2 0 3-3 5-3s3 3 5 3 3-3 5-3 3 3 5 3"></path></svg></button>
+                    <button id="theme-toggle" class="p-2 rounded-full text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-800/50 transition-colors focus:outline-none"><svg id="theme-toggle-light-icon" class="hidden w-6 h-6 transition-colors duration-700" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 2.32a1 1 0 011.415 0l.708.707a1 1 0 01-1.414 1.415l-.707-.708a1 1 0 010-1.414zM16 10a1 1 0 011-1h1a1 1 0 110 2h-1a1 1 0 01-1-1zm-2.32 4.22a1 1 0 010 1.415l-.708.707a1 1 0 11-1.414-1.414l.707-.708a1 1 0 011.415 0zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.22-2.32a1 1 0 01-1.415 0l-.708-.707a1 1 0 011.414-1.415l.707.708a1 1 0 010 1.414zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zm2.32-4.22a1 1 0 010-1.415l.708-.707a1 1 0 011.414 1.415l-.707.708a1 1 0 01-1.415 0z"></path><path d="M10 14a4 4 0 100-8 4 4 0 000 8z"></path></svg><svg id="theme-toggle-dark-icon" class="w-6 h-6 transition-colors duration-700" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg></button>
+                    <button id="mobile-menu-btn" class="md:hidden p-2 rounded-full text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-800/50 transition-colors focus:outline-none" aria-label="Toggle Menu">
+                        <svg id="mobile-menu-open-icon" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                        <svg id="mobile-menu-close-icon" class="hidden w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden border-t border-gray-300 dark:border-gray-800/60 bg-gray-200/95 dark:bg-slate-900/95 backdrop-blur-md">
+            <div class="px-6 py-4 space-y-2 flex flex-col">
+                <a href="index.html" class="text-gray-800 dark:text-gray-200 hover:text-blue-500 py-2 text-base font-medium">Home</a>
+                <a href="about.html" class="text-gray-800 dark:text-gray-200 hover:text-blue-500 py-2 text-base font-medium">About</a>
+                <a href="projects.html" class="text-blue-600 dark:text-blue-400 py-2 text-base font-bold">Projects</a>
+                <a href="resume.html" class="text-gray-800 dark:text-gray-200 hover:text-blue-500 py-2 text-base font-medium">Resume</a>
+                <a href="socials.html" class="text-gray-800 dark:text-gray-200 hover:text-blue-500 py-2 text-base font-medium">Socials</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="relative flex-grow w-full max-w-7xl mx-auto px-6 lg:px-8 mt-28 mb-12 flex flex-col md:flex-row gap-10">
+        <div class="hidden md:flex md:w-1/2 relative rounded-2xl overflow-hidden bg-gray-900/50 backdrop-blur-md border border-gray-300 dark:border-gray-800 h-[500px] lg:h-[600px] shadow-lg">
+            <div id="img-paete-cms" class="project-image-slide absolute inset-0 w-full h-full flex items-center justify-center">
+                <img src="img/project_me1.jpg" alt="CMS Paete Landing Page" class="w-full h-full object-contain p-4">
+            </div>
+            <div id="img-paete-hydration" class="project-image-slide absolute inset-0 w-full h-full flex items-center justify-center">
+                <img src="img/project_me2.jpg" alt="Paete Dynamic Page Hydration" class="w-full h-full object-contain p-4">
+            </div>
+            <div id="img-green-future" class="project-image-slide absolute inset-0 w-full h-full flex items-center justify-center">
+                <img src="img/project_me3.jpg" alt="Asian Hackathon for Green Future" class="w-full h-full object-contain p-4">
+            </div>
+            <div id="img-placeholder" class="absolute inset-0 flex items-center justify-center transition-opacity duration-500 opacity-100 bg-gray-200/20 dark:bg-gray-800/20">
+                <p class="text-gray-600 dark:text-gray-400 font-mono text-sm tracking-widest uppercase">Hover projects to Preview</p>
+            </div>
+        </div>
+
+        <div class="w-full md:w-1/2 flex flex-col justify-center">
+            <div class="mb-10">
+                <h1 class="text-5xl md:text-7xl font-black tracking-tighter text-gray-900 dark:text-white leading-tight">
+                    Project<br><span class="text-blue-500">Section.</span>
+                </h1>
+                <p class="mt-4 font-mono text-xs tracking-widest text-gray-500 uppercase">Hover to view &bull; Click to explore</p>
+            </div>
+
+            <div id="project-list-wrapper" class="flex flex-col border-t border-gray-300 dark:border-gray-800">
+                <button class="project-list-item group flex justify-between items-center py-10 border-b border-gray-300 dark:border-gray-800 text-left transition-colors duration-300" data-project="paete-cms">
+                    <h2 class="text-3xl md:text-4xl font-black tracking-tighter text-gray-800 dark:text-gray-300 group-hover:text-blue-500 transition-colors duration-300">CMS PAETE LANDING</h2>
+                    <span class="text-xs font-mono text-gray-500 w-1/3 text-right group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-300">BB88 WEB &amp; CMS</span>
+                </button>
+
+                <button class="project-list-item group flex justify-between items-center py-10 border-b border-gray-300 dark:border-gray-800 text-left transition-colors duration-300" data-project="paete-hydration">
+                    <h2 class="text-3xl md:text-4xl font-black tracking-tighter text-gray-800 dark:text-gray-300 group-hover:text-teal-400 transition-colors duration-300">PAETE ES6 HYDRATION</h2>
+                    <span class="text-xs font-mono text-gray-500 w-1/3 text-right group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-300">DYNAMIC FRONT-END</span>
+                </button>
+
+                <button class="project-list-item group flex justify-between items-center py-10 border-b border-gray-300 dark:border-gray-800 text-left transition-colors duration-300" data-project="green-future">
+                    <h2 class="text-3xl md:text-4xl font-black tracking-tighter text-gray-800 dark:text-gray-300 group-hover:text-emerald-400 transition-colors duration-300">GREEN FUTURE</h2>
+                    <span class="text-xs font-mono text-gray-500 w-1/3 text-right group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-300">HACKATHON UI/UX</span>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <div id="project-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-6 bg-white/80 dark:bg-slate-900/90 backdrop-blur-xl opacity-0 transition-all duration-500 transform scale-95">
+        <div class="relative w-full max-w-4xl bg-white dark:bg-primary border border-gray-200 dark:border-gray-700 rounded-2xl shadow-2xl p-8 md:p-12 flex flex-col md:flex-row gap-10">
+            <button id="close-modal-btn" class="absolute top-6 right-6 text-gray-500 hover:text-red-500 transition-colors">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div class="w-full md:w-1/2">
+                <img id="modal-img" src="" alt="Project Image" class="w-full h-auto rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
+            </div>
+            <div class="w-full md:w-1/2 flex flex-col justify-center">
+                <span id="modal-category" class="font-mono text-xs tracking-widest uppercase mb-2"></span>
+                <h2 id="modal-title" class="text-4xl font-black tracking-tighter text-gray-900 dark:text-white mb-6"></h2>
+                <h3 id="modal-role" class="text-lg font-bold text-gray-800 dark:text-gray-200 mb-2">My Role: Front-End Architecture</h3>
+                <p id="modal-desc" class="text-gray-600 dark:text-gray-400 leading-relaxed"></p>
+                <button id="modal-back-text" class="mt-8 self-start font-mono text-sm tracking-widest uppercase border-b border-gray-400 hover:text-blue-500 transition-colors">
+                    &larr; Go Back to Projects
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="jspage/script.js"></script>
+    <script src="jspage/jsprojects.js"></script>
+</body>
+</html>

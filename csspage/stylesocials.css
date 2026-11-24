@@ -1,0 +1,6 @@
+/* Modal Transitions (Same structure as Projects page for consistency) */
+#social-modal.is-open {
+    display: flex;
+    opacity: 1;
+    transform: scale(1);
+}

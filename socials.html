@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ken's Portfolio | SOCIALS</title>
+    <script>
+        if (localStorage.getItem('color-theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+        } else {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: { primary: '#0f172a', secondary: '#f8fafc' }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="csspage/style.css">
+    <link rel="icon" type="image/jpeg" href="img/logo.jpg">
+    <link rel="stylesheet" href="csspage/stylesocials.css">
+</head>
+<body class="text-primary dark:text-secondary transition-colors duration-700 min-h-screen overflow-x-hidden selection:bg-blue-500 selection:text-white bg-transparent flex flex-col">
+    <div id="base-bg" class="fixed inset-0 z-[-4] bg-secondary dark:bg-primary transition-colors duration-700"></div>
+
+    <div class="fixed inset-0 z-[-3] pointer-events-none overflow-hidden">
+        <canvas id="warp-grid" class="absolute top-0 left-0 w-full h-full"></canvas>
+        <canvas id="lightshow" class="absolute top-0 left-0 w-full h-full opacity-60"></canvas>
+    </div>
+
+    <div id="cursor-dot" class="hidden md:block"></div>
+    <div id="cursor-outline" class="hidden md:block"></div>
+
+    <nav class="fixed w-full top-0 z-50 backdrop-blur-md bg-gray-200/80 dark:bg-slate-900/60 border-b border-gray-300 dark:border-gray-800/50 transition-colors duration-700">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0 cursor-pointer">
+                    <a href="index.html">
+                        <span class="text-2xl font-black tracking-tighter uppercase transition-colors duration-700 text-gray-900 dark:text-white">Ken's Portfolio<span class="text-blue-500">.</span></span>
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                        <a href="about.html" class="text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
+                        <a href="projects.html" class="text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Projects</a>
+                        <a href="resume.html" class="text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Resume</a>
+                        <a href="socials.html" class="text-blue-600 dark:text-blue-400 px-3 py-2 rounded-md text-sm font-bold transition-colors">Socials</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2 md:space-x-4">
+                    <button id="water-toggle" class="text-blue-500 p-2 rounded-full hover:bg-gray-300 dark:hover:bg-gray-800/50 transition-colors focus:outline-none"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"></path><path stroke-linecap="round" stroke-linejoin="round" d="M3 15c2 0 3-3 5-3s3 3 5 3 3-3 5-3 3 3 5 3M3 19c2 0 3-3 5-3s3 3 5 3 3-3 5-3 3 3 5 3"></path></svg></button>
+                    <button id="theme-toggle" class="p-2 rounded-full text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-800/50 transition-colors focus:outline-none"><svg id="theme-toggle-light-icon" class="hidden w-6 h-6 transition-colors duration-700" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 2.32a1 1 0 011.415 0l.708.707a1 1 0 01-1.414 1.415l-.707-.708a1 1 0 010-1.414zM16 10a1 1 0 011-1h1a1 1 0 110 2h-1a1 1 0 01-1-1zm-2.32 4.22a1 1 0 010 1.415l-.708.707a1 1 0 11-1.414-1.414l.707-.708a1 1 0 011.415 0zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.22-2.32a1 1 0 01-1.415 0l-.708-.707a1 1 0 011.414-1.415l.707.708a1 1 0 010 1.414zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zm2.32-4.22a1 1 0 010-1.415l.708-.707a1 1 0 011.414 1.415l-.707.708a1 1 0 01-1.415 0z"></path><path d="M10 14a4 4 0 100-8 4 4 0 000 8z"></path></svg><svg id="theme-toggle-dark-icon" class="w-6 h-6 transition-colors duration-700" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg></button>
+                    <button id="mobile-menu-btn" class="md:hidden p-2 rounded-full text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-800/50 transition-colors focus:outline-none" aria-label="Toggle Menu">
+                        <svg id="mobile-menu-open-icon" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                        <svg id="mobile-menu-close-icon" class="hidden w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden border-t border-gray-300 dark:border-gray-800/60 bg-gray-200/95 dark:bg-slate-900/95 backdrop-blur-md">
+            <div class="px-6 py-4 space-y-2 flex flex-col">
+                <a href="index.html" class="text-gray-800 dark:text-gray-200 hover:text-blue-500 py-2 text-base font-medium">Home</a>
+                <a href="about.html" class="text-gray-800 dark:text-gray-200 hover:text-blue-500 py-2 text-base font-medium">About</a>
+                <a href="projects.html" class="text-gray-800 dark:text-gray-200 hover:text-blue-500 py-2 text-base font-medium">Projects</a>
+                <a href="resume.html" class="text-gray-800 dark:text-gray-200 hover:text-blue-500 py-2 text-base font-medium">Resume</a>
+                <a href="socials.html" class="text-blue-600 dark:text-blue-400 py-2 text-base font-bold">Socials</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="relative flex-grow w-full max-w-7xl mx-auto px-6 lg:px-8 flex flex-col items-center justify-center z-10 mt-20">
+        <div class="text-center mb-16">
+            <p class="text-blue-500 font-mono text-sm tracking-widest uppercase mb-4">Let's Connect</p>
+            <h1 class="text-5xl md:text-7xl font-black tracking-tighter text-gray-900 dark:text-white">
+                My Networks<span class="text-blue-500">.</span>
+            </h1>
+            <p class="text-gray-600 dark:text-gray-400 mt-4 max-w-xl mx-auto">
+                Select a platform below to view my professional credentials, explore my repositories, or see my creative side.
+            </p>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-8 md:gap-16">
+            <button class="social-icon-btn group relative w-24 h-24 md:w-32 md:h-32 flex items-center justify-center rounded-2xl bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-[0_0_30px_rgba(10,102,194,0.4)] hover:border-[#0a66c2] transition-all duration-300 hover:-translate-y-2" data-social="linkedin">
+                <svg class="w-12 h-12 md:w-16 md:h-16 text-gray-500 group-hover:text-[#0a66c2] transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </button>
+
+            <button class="social-icon-btn group relative w-24 h-24 md:w-32 md:h-32 flex items-center justify-center rounded-2xl bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-[0_0_30px_rgba(24,23,23,0.4)] dark:hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] hover:border-black dark:hover:border-white transition-all duration-300 hover:-translate-y-2" data-social="github">
+                <svg class="w-12 h-12 md:w-16 md:h-16 text-gray-500 group-hover:text-black dark:group-hover:text-white transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.151-1.11-1.46-1.11-1.46-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.295 2.747-1.026 2.747-1.026.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12c0-5.523-4.477-10-10-10z"/></svg>
+            </button>
+
+            <button class="social-icon-btn group relative w-24 h-24 md:w-32 md:h-32 flex items-center justify-center rounded-2xl bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-[0_0_30px_rgba(225,48,108,0.4)] hover:border-[#E1306C] transition-all duration-300 hover:-translate-y-2" data-social="instagram">
+                <svg class="w-12 h-12 md:w-16 md:h-16 text-gray-500 group-hover:text-[#E1306C] transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </button>
+        </div>
+    </main>
+
+    <div id="social-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-6 bg-white/80 dark:bg-slate-900/90 backdrop-blur-xl opacity-0 transition-all duration-500 transform scale-95">
+        <div class="relative w-full max-w-4xl bg-white dark:bg-primary border border-gray-200 dark:border-gray-700 rounded-2xl shadow-2xl p-8 md:p-12 flex flex-col md:flex-row gap-10 overflow-hidden">
+            <button id="close-modal-btn" class="absolute top-6 right-6 text-gray-500 hover:text-red-500 transition-colors z-20">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div id="modal-banner" class="w-full md:w-1/2 h-64 md:h-auto rounded-xl flex items-center justify-center bg-gradient-to-br transition-all duration-500 relative overflow-hidden shadow-inner">
+                <svg id="modal-bg-icon" class="w-48 h-48 text-white/20 absolute -right-10 -bottom-10 transform rotate-12" fill="currentColor" viewBox="0 0 24 24"></svg>
+                <svg id="modal-icon" class="w-24 h-24 text-white relative z-10 drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24"></svg>
+            </div>
+            <div class="w-full md:w-1/2 flex flex-col justify-center">
+                <span id="modal-category" class="font-mono text-xs tracking-widest uppercase mb-2">Connect</span>
+                <h2 id="modal-title" class="text-4xl font-black tracking-tighter text-gray-900 dark:text-white mb-4"></h2>
+                <h3 class="text-lg font-bold text-gray-800 dark:text-gray-200 mb-2" id="modal-handle"></h3>
+                <p id="modal-desc" class="text-gray-600 dark:text-gray-400 leading-relaxed mb-8"></p>
+                <a id="modal-link" href="#" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-2 self-start px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+                    <span id="modal-link-text">Go to my Profile</span>
+                    <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+                <button id="modal-back-text" class="mt-8 self-start font-mono text-xs tracking-widest uppercase text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                    &larr; Close Window
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="jspage/script.js"></script>
+    <script src="jspage/jssocials.js"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+/* Specific styling for the About page image shadows */
+.image-corner-shadow {
+    /* Sharp, aesthetic offset corner shadows */
+    box-shadow: 
+        12px 12px 0px 0px rgba(59, 130, 246, 0.9), 
+        -12px -12px 0px 0px rgba(45, 212, 191, 0.9);
+}
+
+.dark .image-corner-shadow {
+    /* Muted version for dark mode */
+    box-shadow: 
+        12px 12px 0px 0px rgba(59, 130, 246, 0.4), 
+        -12px -12px 0px 0px rgba(45, 212, 191, 0.4);
+}
+
+/* JavaScript Reveal Utility */
+.about-reveal.is-visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
